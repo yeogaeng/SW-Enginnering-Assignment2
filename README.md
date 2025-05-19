@@ -1,5 +1,5 @@
 # SW-Enginnering-Assignment2
-소프트웨어 공학 과제2 개인 프로젝트입니다.
+소프트웨어 공학 과제2 <공유 자전거 대여 시스템> 개인 프로젝트입니다.
 
 
 1) Requirement List
