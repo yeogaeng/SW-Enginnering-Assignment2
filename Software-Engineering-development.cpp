@@ -4,6 +4,11 @@
 #include <iostream>
 #include <vector>
 
+//#include "SignUpUI.h"
+#include "LoginUI.h"
+//#include "BicycleUI.h"
+//#include "RentalUI.h"
+
 using std::ifstream;
 using std::ofstream;
 using std::istringstream;
@@ -15,14 +20,14 @@ using std::pair;
 using std::array;
 
 // --- 각 기능을 담당할 가짜 함수들 ---
-vector<string> handleSignUp(const string& id, const string& password, const string& phoneNumber) {
+bool handleSignUp(const string& id, const string& password, const string& phoneNumber) {
     // 회원가입 로직...
     //return { id, pw, phone};
-    return { id, password, phoneNumber};
+    return true;
 }
-vector<pair<int, string>> handleLogin(const string& id, const string& password) {
+bool handleLogin(const string& id, const string& password) {
     // 로그인 로직...
-    return { {1, "id"} };
+    return true;
 }
 string handleLogout() {
     // 로그아웃 로직...
@@ -80,15 +85,11 @@ int main() {
                 if (action == 1) {
                     // 1.1 회원가입: "1 1 ID PW phone"
                     if (iss >> id >> pw >> phone) {
-                        auto result = handleSignUp(id,pw,phone);
-                        if (!result.empty()) {
-                            out << "1.1. 회원가입\n";
-                            out << ">";
-                            for (auto& f : result) 
-                                out << " " << f;
-                            out << "\n";
+                        if(handleSignUp(id, pw, phone)){
+                            out << "2.1. 로그인\n";
+                            out << "> " << id << " " << pw << " " << phone << "\n";
                         }
-                    }
+                    }  
                 }
                 break;
 
@@ -96,10 +97,9 @@ int main() {
                 if (action == 1) {
                     // 2.1 로그인: "2 1 ID PW"
                     if (iss >> id >> pw && isLogin==false) {
-                        auto result = handleLogin(id, pw);
-                        if(!result.empty()){
+                        if(handleLogin(id, pw)){
                             out << "2.1. 로그인\n";
-                            out << "> " << result[0].first << " " << result[0].second << "\n";
+                            out << "> " << id << " " << pw << "\n";
                             isLogin = true;
                         }
                     }
