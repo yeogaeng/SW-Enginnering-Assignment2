@@ -15,29 +15,29 @@ using std::pair;
 using std::array;
 
 // --- 각 기능을 담당할 가짜 함수들 ---
-vector<string> doSignUp(const string& id, const string& pw, const string& phone) {
+vector<string> handleSignUp(const string& id, const string& password, const string& phoneNumber) {
     // 회원가입 로직...
     //return { id, pw, phone};
-    return { id, pw, phone};
+    return { id, password, phoneNumber};
 }
-vector<pair<int, string>> doLogin(const string& id, const string& pw) {
+vector<pair<int, string>> handleLogin(const string& id, const string& password) {
     // 로그인 로직...
     return { {1, "id"} };
 }
-string doLogout() {
+string handleLogout() {
     // 로그아웃 로직...
     //return Id (string)
     return "id";
 }
-vector<pair<int,string>> doAddBicycle(int bicycleId, const string& name) {
+vector<pair<int,string>> handleAddBicycle(int bicycleId, const string& bicycleName) {
     // 자전거 등록 로직...
     return { {1, "id"} };
 }
-vector<pair<int,string>> doRentBicycle(int bicycleId) {
+vector<pair<int,string>> handleLendBicycle(int bicycleId) {
     // 자전거 대여 로직...
     return { {1, "id"} };
 }
-vector<pair<int,string>> doListRentals() {
+vector<pair<int,string>> handleShowLendInfo() {
     // 대여 리스트 반환...
     //return {};
     return { {1, "id"} };
@@ -80,7 +80,7 @@ int main() {
                 if (action == 1) {
                     // 1.1 회원가입: "1 1 ID PW phone"
                     if (iss >> id >> pw >> phone) {
-                        auto result = doSignUp(id,pw,phone);
+                        auto result = handleSignUp(id,pw,phone);
                         if (!result.empty()) {
                             out << "1.1. 회원가입\n";
                             out << ">";
@@ -96,7 +96,7 @@ int main() {
                 if (action == 1) {
                     // 2.1 로그인: "2 1 ID PW"
                     if (iss >> id >> pw && isLogin==false) {
-                        auto result = doLogin(id, pw);
+                        auto result = handleLogin(id, pw);
                         if(!result.empty()){
                             out << "2.1. 로그인\n";
                             out << "> " << result[0].first << " " << result[0].second << "\n";
@@ -107,7 +107,7 @@ int main() {
                 else if (action == 2) {
                     // 2.2 로그아웃: "2 2"
                     if (isLogin){
-                        string result = doLogout();
+                        string result = handleLogout();
                         out << "2.2. 로그아웃\n";
                         out << ">" << result << "\n";
                         isLogin = false;
@@ -119,7 +119,7 @@ int main() {
                 if (action == 1) {
                     // 3.1 자전거 등록: "3 1 bicycleId bicycleName"
                     if (iss >> bicycleId >> bicycleName) {
-                        auto result = doAddBicycle(bicycleId, bicycleName);
+                        auto result = handleAddBicycle(bicycleId, bicycleName);
 
                         if(!result.empty()){
                             out << "3.1. 자전거 등록\n";
@@ -133,7 +133,7 @@ int main() {
                 if (action == 1) {
                     // 4.1 자전거 대여: "4 1 bicycleId"
                     if (iss >> bicycleId) {
-                        auto result = doRentBicycle(bicycleId); // bicycleId, bicycleName 두 값 받아와야함
+                        auto result = handleLendBicycle(bicycleId); // bicycleId, bicycleName 두 값 받아와야함
                         
                         if(!result.empty()){
                             out << "4.1. 자전거 대여\n";
@@ -146,7 +146,7 @@ int main() {
             case 5:
                 if (action == 1) {
                     // 5.1 대여 리스트: "5 1"
-                    auto list = doListRentals();
+                    auto list = handleShowLendInfo();
                     out << "5.1. 자전거 대여 리스트\n";
                     for (auto& [id,name] : list) {
                         out << ">"; 
