@@ -1,15 +1,17 @@
 // Rental.cpp
 #include "Rental.h"
+#include "Member.h"
+#include "Bicycle.h"
 
-int Rental::nextRentalNum = 1;
+Rental::Rental(Member* m, Bicycle* b)
+  : member(m)
+  , bicycle(b)
+{}
 
-Rental::Rental(Member* member, Bicycle* bicycle)
-    : rentalNum(nextRentalNum++), member(member), bicycle(bicycle) {}
-
-Rental* Rental::createRental(Member* member, Bicycle* bicycle) {
-    return new Rental(member, bicycle);
+Member* Rental::getMember() {
+    return member;
 }
 
-int Rental::getRentalNum() const { return rentalNum; }
-Member* Rental::getMember() const { return member; }
-Bicycle* Rental::getBicycle() const { return bicycle; }
+Bicycle* Rental::getBicycle() {
+    return bicycle;
+}

@@ -18,11 +18,12 @@ private:
 
 public:
     Member(int memberNum, string& id, string& password, string& phoneNumber); //repo에서 호출
+
+    bool checkPassword(string& passsword);
+
     int getMemberNum();
     string getId();
     string getPhoneNumber();
-    bool checkPassword(string& passsword);
-
     RentalCollection* getRentalCollection();
 };
 
