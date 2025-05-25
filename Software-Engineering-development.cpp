@@ -9,7 +9,7 @@
 #include "LogoutUI.h"
 #include "AddBicycleUI.h"
 #include "LendBicycleUI.h"
-//#include "RentalUI.h"
+#include "ShowLendInfoUI.h" 
 
 using std::ifstream;
 using std::ofstream;
@@ -140,14 +140,14 @@ int main() {
             case 5:
                 if (action == 1) {
                     // 5.1 대여 리스트: "5 1"
-                    auto list = handleShowLendInfo();
+                    auto list = ShowLendInfoUI::handleShowLendInfo();
                     out << "5.1. 자전거 대여 리스트\n";
                     for (auto& [id,name] : list) {
                         out << ">"; 
-                        out << " " << id << " " << name << "\n\n";
+                        out << " " << id << " " << name << "\n";
                     }
+                    out << "\n";
                 }
-                    //반환 값 없으면 5.1 만 출력?
                 break;
 
             case 6:

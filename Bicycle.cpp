@@ -17,7 +17,6 @@ bool Bicycle::addNewBicycle(const string& id, const string& name) {
     }
     Bicycle* b = new Bicycle(nextBicycleNum++, id, name);
     bicycleList.push_back(b);
-    
     return true;
 }
 
