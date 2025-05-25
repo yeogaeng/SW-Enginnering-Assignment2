@@ -1,6 +1,10 @@
+// LendBicycleUI.cpp
 #include "LendBicycleUI.h"
-#include "LendBicycle.h"
 
-pair<string,string> LendBicycleUI::handleLendBicycle(const string& bicycleId) {
-    return LendBicycle::lendBicycle(bicycleId);
+LendBicycleUI::LendBicycleUI(LendBicycle& ctrl)
+  : lendCtrl(ctrl)
+{}
+
+pair<string,string> LendBicycleUI::handleLendBicycle(string bicycleId) {
+    return lendCtrl.handleLendBicycle(bicycleId);
 }

@@ -1,32 +1,24 @@
 // Bicycle.cpp
 #include "Bicycle.h"
-#include <iostream>
-using std::vector;
-using std::string;
 
-int Bicycle::nextBicycleNum = 1;
-vector<Bicycle*> Bicycle::bicycleList;
+// 생성자 정의
+Bicycle::Bicycle(int bicycleNum, string bicycleId, string bicycleName)
+  : bicycleNum(bicycleNum)
+  , bicycleId(bicycleId)
+  , bicycleName(bicycleName)
+{}
 
-Bicycle::Bicycle(int bicycleNum, const string& bicycleId, const string& bicycleName)
-    : bicycleNum(bicycleNum), bicycleId(bicycleId), bicycleName(bicycleName) {}
-
-bool Bicycle::addNewBicycle(const string& id, const string& name) {
-    // 중복 ID 방지
-    for (auto* b : bicycleList) {
-        if (b->bicycleId == id) return false;
-    }
-    Bicycle* b = new Bicycle(nextBicycleNum++, id, name);
-    bicycleList.push_back(b);
-    return true;
+// 고유 번호 반환
+int Bicycle::getBicycleNum() {
+    return bicycleNum;
 }
 
-Bicycle* Bicycle::getBicycle(const string& id) {
-    for (auto* b : bicycleList) {
-        if (b->bicycleId == id) return b;
-    }
-    return nullptr;
+// ID 반환
+string Bicycle::getId() {
+    return bicycleId;
 }
 
-int Bicycle::getBicycleNum() const { return bicycleNum; }
-string Bicycle::getId() const { return bicycleId; }
-string Bicycle::getName() const { return bicycleName; }
+// 이름 반환
+string Bicycle::getName() {
+    return bicycleName;
+}

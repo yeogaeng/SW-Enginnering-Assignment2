@@ -1,32 +1,26 @@
+// LoginUser.cpp
 #include "LoginUser.h"
-#include <string>
-#include <iostream>
 
-using std::string;
+// 생성자: currentMember 를 nullptr 로 초기화
+LoginUser::LoginUser()
+  : currentMember(nullptr)
+{}
 
-// static 멤버 초기화
-string LoginUser::sessionId = "";
-
-
-string LoginUser::whoIsLogin() {
-    return sessionId;
-}
-
-//로그인 중인 회원
-bool LoginUser::addLoginUser(const string& id) { //로그인 중 확인은 무조건 이전에 진행
-    sessionId = id;
+// 로그인: member 가 nullptr 이거나 이미 로그인된 상태면 실패
+bool LoginUser::addLoginUser(Member* member) {
+    if (!member || currentMember) {
+        return false;
+    }
+    currentMember = member;
     return true;
 }
 
-string LoginUser::deleteLoginUser() {
-    string currentId = whoIsLogin();
-    if (!currentId.empty()){
-        sessionId.clear();
-        return currentId; //세션 삭제 완료
-    }
-    return ""; //로그인이 되어있지 않은 경우
+// 로그아웃: 언제나 성공, currentMember 를 해제(nullptr)
+void LoginUser::deleteLoginUser() {
+    currentMember = nullptr;
 }
 
-std::string LoginUser::getSessionId() {
-    return sessionId;
+// 지금 로그인 중인 Member* 반환 (nullptr 이면 로그아웃 상태)
+Member* LoginUser::whoIsLogin() {
+    return currentMember;
 }

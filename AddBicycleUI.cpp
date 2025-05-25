@@ -1,6 +1,10 @@
+// AddBicycleUI.cpp
 #include "AddBicycleUI.h"
-#include "AddBicycle.h"
 
-bool AddBicycleUI::handleAddNewBicycle(const string& bicycleId, const string& bicycleName) {
-    return AddBicycle::addNewBicycle(bicycleId, bicycleName);
+AddBicycleUI::AddBicycleUI(AddBicycle& ctrl)
+  : addBicycleCtrl(ctrl)
+{}
+
+bool AddBicycleUI::handleAddNewBicycle(string bicycleId, string bicycleName) {
+    return addBicycleCtrl.handleAddNewBicycle(bicycleId, bicycleName);
 }

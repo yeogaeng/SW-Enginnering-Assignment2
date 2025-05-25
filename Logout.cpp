@@ -1,7 +1,18 @@
+// Logout.cpp
 #include "Logout.h"
 #include "LoginUser.h"
 
-string Logout::logout() {
-    // 현재 로그인된 사용자의 ID 확인
-    return LoginUser::deleteLoginUser();
+Logout::Logout(LoginUser& session)
+  : session(session)
+{}
+
+string Logout::handleLogout() {
+    // 현재 로그인된 회원 가져오기
+    Member* m = session.whoIsLogin();
+    if (m) {
+        string id = m->getId();
+        session.deleteLoginUser();
+        return id;
+    }
+    return "";
 }

@@ -1,7 +1,10 @@
 // LogoutUI.cpp
 #include "LogoutUI.h"
-#include "Logout.h"
+
+LogoutUI::LogoutUI(Logout& ctrl)
+  : logoutCtrl(ctrl)
+{}
 
 string LogoutUI::handleLogout() {
-    return Logout::logout();
+    return logoutCtrl.handleLogout();
 }

@@ -1,29 +1,23 @@
 // LendBicycle.cpp
 #include "LendBicycle.h"
-#include "LoginUser.h"
-#include "Member.h"
 #include "RentalCollection.h"
 #include "Rental.h"
-#include "Bicycle.h"
 
-pair<string, string> LendBicycle::lendBicycle(const string& bicycleId) {
-    // 1) 현재 로그인된 사용자의 ID를 가져온다
-    string memberId = LoginUser::whoIsLogin();
-    if (memberId.empty())
-        return {"", ""}; // 로그인되지 않은 상태
+LendBicycle::LendBicycle(BicycleRepository& bp, MemberRepository& mp, LoginUser& sess) : bicycleRepository(bp), memberRepository(mp), session(sess){}
 
-    Member* m = Member::findMemberById(memberId);
-    if (!m) // 해당 ID의 회원이 존재하지 않음
-        return {"", ""};;
+pair<string,string> LendBicycle::handleLendBicycle(string bicycleId) {
+    // 1) 로그인된 Member 가져오기
+    Member* m = session.whoIsLogin();
+    if (!m) return {"",""};
 
-    // 2) 자전거 객체 조회
-    Bicycle* bike = Bicycle::getBicycle(bicycleId);
-    if (!bike) return {"", ""};
+    // 2) 자전거 조회
+    Bicycle* bicycle = bicycleRepository.findById(bicycleId);
+    if (!bicycle) return {"",""};
 
     // 3) Rental 생성 및 컬렉션 추가
     RentalCollection* rc = m->getRentalCollection();
-    Rental* r = Rental::createRental(m, bike);
+    Rental* r = Rental::createRental(m, bicycle);
     rc->addRental(r);
 
-    return { bike->getId(), bike->getName() };
+    return { bicycle->getId(), bicycle->getName() };
 }

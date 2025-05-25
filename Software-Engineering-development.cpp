@@ -4,12 +4,23 @@
 #include <iostream>
 #include <vector>
 
+
 #include "SignUpUI.h"
 #include "LoginUI.h"
 #include "LogoutUI.h"
 #include "AddBicycleUI.h"
 #include "LendBicycleUI.h"
 #include "ShowLendInfoUI.h" 
+
+#include "SignUp.h"
+#include "Login.h"
+#include "Logout.h"
+#include "AddBicycle.h"
+#include "LendBicycle.h"
+#include "ShowLendInfo.h" 
+
+#include "MemberRepository.h"
+#include "LoginUser.h"
 
 using std::ifstream;
 using std::ofstream;
@@ -20,6 +31,27 @@ using std::cout;
 using std::pair;
 
 int main() {
+    MemberRepository memberRepository;
+    // 미리 관리자 등록
+    memberRepository.addNewMember("admin","admin","");
+    LoginUser session;
+    BicycleRepository bicycleRepository;
+
+    // 2) Controller 만들기 (비즈니스 로직)
+    SignUp      signUpCtrl(memberRepository);
+    Login       loginCtrl(memberRepository, session);
+    Logout      logoutCtrl(session);
+    AddBicycle  addBicycleCtrl(bicycleRepository);
+    LendBicycle lendBicycleCtrl(bicycleRepository, memberRepository, session);
+    ShowLendInfo showLendCtrl(session);
+
+    // 3) UI 만들기 (입력/출력 어댑터)
+    SignUpUI       signUpUI(signUpCtrl);
+    LoginUI        loginUI(loginCtrl);
+    LogoutUI       logoutUI(logoutCtrl);
+    AddBicycleUI   addBicycleUI(addBicycleCtrl);
+    LendBicycleUI  lendBicycleUI(lendBicycleCtrl);
+    ShowLendInfoUI showLendUI(showLendCtrl);
 
     ifstream in("input.txt");
     if (!in.is_open()) {
@@ -51,7 +83,7 @@ int main() {
                 if (action == 1) {
                     // 1.1 회원가입: "1 1 ID PW phone"
                     if (iss >> id >> pw >> phone) {
-                        if(SignUpUI::handleSignUp(id, pw, phone)){
+                        if(signUpUI.handleSignUp(id, pw, phone)){
                             out << "1.1. 회원가입\n";
                             out << "> " << id << " " << pw << " " << phone << "\n\n";
                         }
@@ -63,7 +95,7 @@ int main() {
                 if (action == 1) {
                     // 2.1 로그인: "2 1 ID PW"
                     if (iss >> id >> pw) {
-                        if(LoginUI::handleLogin(id, pw)){
+                        if(loginUI.handleLogin(id, pw)){
                             out << "2.1. 로그인\n";
                             out << "> " << id << " " << pw << "\n\n";
                         }
@@ -71,7 +103,7 @@ int main() {
                 }
                 else if (action == 2) {
                     // 2.2 로그아웃: "2 2"
-                    string logoutId = LogoutUI::handleLogout();
+                    string logoutId = logoutUI.handleLogout();
                     if(!logoutId.empty()){
                         out << "2.2. 로그아웃\n";
                         out << "> " << logoutId << "\n\n";
@@ -83,7 +115,7 @@ int main() {
                 if (action == 1) {
                     // 3.1 자전거 등록: "3 1 bicycleId bicycleName"
                     if (iss >> bicycleId >> bicycleName) {
-                        if(AddBicycleUI::handleAddNewBicycle(bicycleId, bicycleName)){
+                        if(addBicycleUI.handleAddNewBicycle(bicycleId, bicycleName)){
                             out << "3.1. 자전거 등록\n";
                             out << "> " << bicycleId << " " << bicycleName << "\n\n";
                         }
@@ -95,7 +127,7 @@ int main() {
                 if (action == 1) {
                     // 4.1 자전거 대여: "4 1 bicycleId"
                     if (iss >> bicycleId) {
-                        auto result = LendBicycleUI::handleLendBicycle(bicycleId);
+                        auto result = lendBicycleUI.handleLendBicycle(bicycleId);
                         if (!result.first.empty() || !result.first.empty()) {
                             out << "4.1. 자전거 대여\n";
                             out << "> " << result.first << " " << result.second << "\n\n";
@@ -107,7 +139,7 @@ int main() {
             case 5:
                 if (action == 1) {
                     // 5.1 대여 리스트: "5 1"
-                    auto list = ShowLendInfoUI::handleShowLendInfo();
+                    auto list = showLendUI.handleShowLendInfo();
                     out << "5.1. 자전거 대여 리스트\n";
                     for (auto& [id,name] : list) {
                         out << ">"; 

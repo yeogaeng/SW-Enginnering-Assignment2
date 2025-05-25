@@ -1,13 +1,20 @@
 // SignUpUI.h
 #pragma once
+
 #include <string>
-#include <fstream>
+#include "SignUp.h"
 
 using std::string;
 
-// <<boundary>> SignUpUI: 회원가입 입력 처리
+// <<boundary>> SignUpUI: UI 레이어에서 입력 받아 컨트롤 호출
 class SignUpUI {
+private:
+    SignUp& signUpCtrl;
+
 public:
-    // 반환값: 성공(true)/실패(false)
-    static bool handleSignUp(const string& id, const string& password, const string& phoneNumber);
+    // SignUp 컨트롤러를 생성자 주입
+    SignUpUI(SignUp& ctrl);
+
+    // 화면으로부터 받은 파라미터를 컨트롤에 전달
+    bool handleSignUp(string id, string password, string phoneNumber);
 };

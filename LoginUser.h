@@ -1,32 +1,22 @@
-#ifndef LOGINUSER_H
-#define LOGINUSER_H
+#pragma once
 
-#include <string>
+#include "Member.h"
 
-using std::string;
-
-// <<entity>> LoginUser: 로그인 세션 관리 클래스
 class LoginUser {
 private:
-    // 현재 활성화된 세션 ID
-    static string sessionId;
-
-    // 생성자 삭제: 인스턴스를 직접 생성할 수 없음
-    LoginUser() = delete;
+    // 현재 로그인된 회원을 가리키는 포인터 (nullptr 이면 로그아웃 상태)
+    Member* currentMember;
 
 public:
-    // 로그인 요청: 성공 시 새로운 세션 생성 후 true 반환
-    // id: 회원 로그인 아이디
-    static bool addLoginUser(const string& id);
+    // 생성자: 초기에는 아무도 로그인되어 있지 않음
+    LoginUser();
 
-    // 로그아웃 요청: 활성 세션이 있으면 해제 후 true 반환
-    static string deleteLoginUser();
+    // 로그인: m 이 nullptr 이거나 이미 다른 사용자가 로그인 중이면 실패
+    bool addLoginUser(Member* member);
 
-    // 로그인 상태 조회: 세션 활성 중이면 id return. 없으면 null
-    static string whoIsLogin();
+    // 로그아웃: 언제나 성공, session 해제
+    void deleteLoginUser();
 
-    // (선택) 현재 세션 ID 반환
-    static string getSessionId();
+    // 지금 로그인 중인 Member* 반환 (nullptr 이면 로그아웃 상태)
+    Member* whoIsLogin();
 };
-
-#endif // LOGINUSER_H

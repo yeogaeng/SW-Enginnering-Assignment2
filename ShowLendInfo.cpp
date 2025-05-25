@@ -1,26 +1,23 @@
+// ShowLendInfo.cpp
 #include "ShowLendInfo.h"
 #include "LoginUser.h"
-#include "Member.h"
 #include "RentalCollection.h"
 #include "Rental.h"
-#include "Bicycle.h" 
+#include "Bicycle.h"
 #include <algorithm>
 
-vector<pair<string, string>> ShowLendInfo::showLendInfo() {
+ShowLendInfo::ShowLendInfo(LoginUser& session)
+  : session(session)
+{}
 
-    vector<pair<string, string>> result;
-    
-    // 1) 로그인된 회원 ID 확인
-    string memberId = LoginUser::whoIsLogin();
-    if (memberId.empty())
-        return result;
+vector<pair<string,string>> ShowLendInfo::handleShowLendInfo() {
+    vector<pair<string,string>> result;
 
-    // 2) 회원 객체 조회
-    Member* m = Member::findMemberById(memberId);
-    if (!m)
-        return result;
+    // 1) 로그인된 Member* 얻기
+    Member* m = session.whoIsLogin();
+    if (!m) return result;
 
-    // 3) RentalCollection 순회하여 자전거 ID/이름 수집
+    // 2) RentalCollection* 순회
     RentalCollection* rc = m->getRentalCollection();
     Rental* r = rc->findFirst();
     while (r) {
@@ -29,11 +26,9 @@ vector<pair<string, string>> ShowLendInfo::showLendInfo() {
         r = rc->getNext();
     }
 
-    // 4) 자전거 ID 오름차순 정렬
+    // 3) ID 오름차순 정렬
     std::sort(result.begin(), result.end(),
-              [](const pair<string,string>& a, const pair<string,string>& b) {
-                  return a.first < b.first;
-              });
+              [](auto& a, auto& b){ return a.first < b.first; });
 
     return result;
 }

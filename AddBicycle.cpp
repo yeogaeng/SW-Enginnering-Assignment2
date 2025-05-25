@@ -1,6 +1,11 @@
+// AddBicycle.cpp
 #include "AddBicycle.h"
-#include "Bicycle.h"
 
-bool AddBicycle::addNewBicycle(const string& bicycleId, const string& bicycleName) {
-    return Bicycle::addNewBicycle(bicycleId, bicycleName);
+AddBicycle::AddBicycle(BicycleRepository& repo)
+  : bicycleRepository(repo)
+{}
+
+bool AddBicycle::handleAddNewBicycle(string bicycleId, string bicycleName) {
+    // addBicycle이 nullptr을 반환하면 중복 ID이므로 false
+    return bicycleRepository.addBicycle(bicycleId, bicycleName) != nullptr;
 }

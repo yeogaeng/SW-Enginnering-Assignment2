@@ -1,6 +1,12 @@
+// SignUpUI.cpp
 #include "SignUpUI.h"
-#include "SignUp.h"
 
-bool SignUpUI::handleSignUp(const string& id, const string& password, const string& phoneNumber) {
-    return SignUp::signUp(id, password, phoneNumber);
+// 생성자 정의: member initializer list 로 컨트롤러 참조 주입
+SignUpUI::SignUpUI(SignUp& ctrl)
+  : signUpCtrl(ctrl)
+{}
+
+// 파라미터 그대로 컨트롤러에 전달하고 결과 반환
+bool SignUpUI::handleSignUp(string id, string password, string phoneNumber) {
+    return signUpCtrl.handleSignUp(id, password, phoneNumber);
 }

@@ -1,6 +1,10 @@
+// ShowLendInfoUI.cpp
 #include "ShowLendInfoUI.h"
-#include "ShowLendInfo.h"
 
-vector<pair<string, string>> ShowLendInfoUI::handleShowLendInfo() {
-    return ShowLendInfo::showLendInfo();
+ShowLendInfoUI::ShowLendInfoUI(ShowLendInfo& ctrl)
+  : showCtrl(ctrl)
+{}
+
+vector<pair<string,string>> ShowLendInfoUI::handleShowLendInfo() {
+    return showCtrl.handleShowLendInfo();
 }
