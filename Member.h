@@ -35,7 +35,9 @@ public:
     static int isMember(const string& id, const string& password); // ID/PW로 기존 회원 검증
     static bool addNewMember(const string& id, const string& password, const string& phoneNumber); // 신규 회원 생성 및 리스트에 추가
     // 회원 번호로 조회
-    static Member* findMemberByMemberNum(const int memberNum);
+    static Member* findMemberByMemberNum(const int memberNum); //이거 안 쓰면 없애기!
+    
+    static Member* findMemberById(const string& id);
     
     int getMemberNum() const;
     string getId() const;

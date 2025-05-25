@@ -64,6 +64,16 @@ Member* Member::findMemberByMemberNum(const int memberNum) {
     return nullptr;
 }
 
+// 회원 ID로 조회
+Member* Member::findMemberById(const string& id) {
+    for (auto* m : memberList) {
+        if (m->id == id)
+            return m;
+    }
+    return nullptr;
+}
+
+
 int Member::getMemberNum() const {
     return memberNum;
 }

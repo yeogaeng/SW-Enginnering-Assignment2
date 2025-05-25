@@ -28,8 +28,8 @@ public:
 
     // getters
     int getBicycleNum() const;
-    const string& getId() const;
-    const string& getName() const;
+    string getId() const;
+    string getName() const;
 };
 
 #endif // BICYCLE_H

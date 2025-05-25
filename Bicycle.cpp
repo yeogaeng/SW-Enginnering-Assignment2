@@ -1,6 +1,6 @@
 // Bicycle.cpp
 #include "Bicycle.h"
-
+#include <iostream>
 using std::vector;
 using std::string;
 
@@ -17,6 +17,7 @@ bool Bicycle::addNewBicycle(const string& id, const string& name) {
     }
     Bicycle* b = new Bicycle(nextBicycleNum++, id, name);
     bicycleList.push_back(b);
+    
     return true;
 }
 
@@ -28,5 +29,5 @@ Bicycle* Bicycle::getBicycle(const string& id) {
 }
 
 int Bicycle::getBicycleNum() const { return bicycleNum; }
-const string& Bicycle::getId() const { return bicycleId; }
-const string& Bicycle::getName() const { return bicycleName; }
+string Bicycle::getId() const { return bicycleId; }
+string Bicycle::getName() const { return bicycleName; }

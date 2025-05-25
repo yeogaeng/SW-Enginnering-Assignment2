@@ -8,6 +8,7 @@
 #include "LoginUI.h"
 #include "LogoutUI.h"
 #include "AddBicycleUI.h"
+#include "LendBicycleUI.h"
 //#include "RentalUI.h"
 
 using std::ifstream;
@@ -127,11 +128,10 @@ int main() {
                 if (action == 1) {
                     // 4.1 자전거 대여: "4 1 bicycleId"
                     if (iss >> bicycleId) {
-                        auto result = handleLendBicycle(bicycleId); // bicycleId, bicycleName 두 값 받아와야함
-                        
-                        if(!result.empty()){
+                        auto result = LendBicycleUI::handleLendBicycle(bicycleId);
+                        if (!result.first.empty() || !result.first.empty()) {
                             out << "4.1. 자전거 대여\n";
-                            out << "> " << result[0].first << " " << result[0].second << "\n\n";
+                            out << "> " << result.first << " " << result.second << "\n\n";
                         }
                     }
                 }
