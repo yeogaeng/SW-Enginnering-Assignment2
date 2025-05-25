@@ -21,12 +21,12 @@ namespace {
 
 /*로그인*/
 //회원인지 아이디, 비번 확인
-int Member::isMember(const string& id, const string& password) {
+string Member::isMember(const string& id, const string& password) {
     for (auto* m : memberList) {
         if (m->id == id && m->password == password)
-            return m->memberNum;
+            return m->id;
     }
-    return -1;
+    return "";
 }
 
 /*회원가입*/
@@ -55,15 +55,6 @@ Member::Member(int memberNum, const string& id, const string& password, const st
     ownedRentalCollection = new RentalCollection();
 }
 
-
-Member* Member::findMemberByMemberNum(const int memberNum) {
-    for (auto* m : memberList) {
-        if (m->memberNum == memberNum)
-            return m;
-    }
-    return nullptr;
-}
-
 // 회원 ID로 조회
 Member* Member::findMemberById(const string& id) {
     for (auto* m : memberList) {
@@ -71,11 +62,6 @@ Member* Member::findMemberById(const string& id) {
             return m;
     }
     return nullptr;
-}
-
-
-int Member::getMemberNum() const {
-    return memberNum;
 }
 
 string Member::getId() const {

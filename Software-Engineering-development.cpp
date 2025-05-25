@@ -15,42 +15,10 @@ using std::ifstream;
 using std::ofstream;
 using std::istringstream;
 using std::string;
-using std::cout;
-using std::endl;
 using std::vector;
+using std::cout;
 using std::pair;
-using std::array;
 
-// --- 각 기능을 담당할 가짜 함수들 ---
-bool handleSignUp(const string& id, const string& password, const string& phoneNumber) {
-    // 회원가입 로직...
-    //return { id, pw, phone};
-    return true;
-}
-bool handleLogin(const string& id, const string& password) {
-    // 로그인 로직...
-    return true;
-}
-bool handleLogout(const string& id) {
-    // 로그아웃 로직...
-    //return Id (string)
-    return true;
-}
-bool handleAddBicycle(const string& bicycleId, const string& bicycleName) {
-    // 자전거 등록 로직...
-    return true;
-}
-vector<pair<int,string>> handleLendBicycle(const string& bicycleId) {
-    // 자전거 대여 로직...
-    return { {1, "id"} };
-}
-vector<pair<int,string>> handleShowLendInfo() {
-    // 대여 리스트 반환...
-    //return {};
-    return { {1, "id"} };
-}
-
-// --- 메인 처리 루프 ---
 int main() {
 
     ifstream in("input.txt");
@@ -69,7 +37,6 @@ int main() {
     while (std::getline(in, line)) {
         istringstream iss(line);
         int menu, action;
-        // 아이디, 비밀번호, 전화번호, 자전거명 등을 담을 변수
         string id, pw, phone, bicycleId, bicycleName;
 
         // 먼저 메뉴와 액션만 뽑아보고
@@ -163,7 +130,6 @@ int main() {
                 break;
         }
     }
-
     in.close();
     out.close();
     return 0;
