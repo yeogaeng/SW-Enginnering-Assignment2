@@ -7,7 +7,7 @@
 #include "SignUpUI.h"
 #include "LoginUI.h"
 #include "LogoutUI.h"
-//#include "BicycleUI.h"
+#include "AddBicycleUI.h"
 //#include "RentalUI.h"
 
 using std::ifstream;
@@ -35,11 +35,11 @@ bool handleLogout(const string& id) {
     //return Id (string)
     return true;
 }
-vector<pair<int,string>> handleAddBicycle(int bicycleId, const string& bicycleName) {
+bool handleAddBicycle(const string& bicycleId, const string& bicycleName) {
     // 자전거 등록 로직...
-    return { {1, "id"} };
+    return true;
 }
-vector<pair<int,string>> handleLendBicycle(int bicycleId) {
+vector<pair<int,string>> handleLendBicycle(const string& bicycleId) {
     // 자전거 대여 로직...
     return { {1, "id"} };
 }
@@ -69,8 +69,7 @@ int main() {
         istringstream iss(line);
         int menu, action;
         // 아이디, 비밀번호, 전화번호, 자전거명 등을 담을 변수
-        string id, pw, phone, bicycleName;
-        int bicycleId;
+        string id, pw, phone, bicycleId, bicycleName;
 
         // 먼저 메뉴와 액션만 뽑아보고
         if (!(iss >> menu >> action)) {
@@ -116,11 +115,9 @@ int main() {
                 if (action == 1) {
                     // 3.1 자전거 등록: "3 1 bicycleId bicycleName"
                     if (iss >> bicycleId >> bicycleName) {
-                        auto result = handleAddBicycle(bicycleId, bicycleName);
-
-                        if(!result.empty()){
+                        if(AddBicycleUI::handleAddNewBicycle(bicycleId, bicycleName)){
                             out << "3.1. 자전거 등록\n";
-                            out << "> " << result[0].first << " " << result[0].second << "\n\n";
+                            out << "> " << bicycleId << " " << bicycleName << "\n\n";
                         }
                     }
                 }
