@@ -21,10 +21,10 @@ public:
     static bool addLoginUser(int memberNum, const string& id);
 
     // 로그아웃 요청: 활성 세션이 있으면 해제 후 true 반환
-    static bool deleteLoginUser();
+    static string deleteLoginUser();
 
-    // 로그인 상태 조회: true면 세션 활성화됨
-    static bool isLogin();
+    // 로그인 상태 조회: 세션 활성 중이면 id return. 없으면 null
+    static string whoIsLogin();
 
     // (선택) 현재 세션 번호 반환
     static int getSessionNum();

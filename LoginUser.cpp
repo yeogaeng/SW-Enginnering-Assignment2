@@ -1,5 +1,6 @@
 #include "LoginUser.h"
 #include <string>
+#include <iostream>
 
 using std::string;
 
@@ -7,30 +8,31 @@ using std::string;
 int LoginUser::sessionNum = -1;
 string LoginUser::sessionId = "";
 
-bool LoginUser::addLoginUser(int memberNum, const std::string& id) {
-    if (sessionNum != -1) 
-        return false; // 이미 로그인 중
-    
-    sessionNum = sessionNum;
+
+string LoginUser::whoIsLogin() {
+    return sessionId;
+}
+
+//로그인 중인 회원
+bool LoginUser::addLoginUser(int memberNum, const string& id) { //로그인 중 확인은 무조건 이전에 isLogin()에서 진행
+    sessionNum = memberNum;
     sessionId = id;
+    std::cout << "로그인 중인 회원 : " <<sessionId << sessionNum <<'\n';
     return true;
 }
 
-bool LoginUser::deleteLoginUser() {
-    if (sessionNum == -1) 
-        return false; // 로그인 상태 아님
-    
-    sessionNum = -1;
-    sessionId.clear();
-    return true;
+string LoginUser::deleteLoginUser() {
+    string currentId = whoIsLogin();
+    if (!currentId.empty()){
+        sessionNum = -1;
+        sessionId.clear();
+        //std::cout << "로그인 중인 회원 : " <<sessionId << sessionNum <<'\n';
+        return currentId; //세션 삭제 완료
+    }
+    return ""; //로그인이 되어있지 않은 경우
 }
 
-bool LoginUser::isLogin() {
-    if(sessionNum != -1)
-        return true; // 이미 로그인 중
-    
-    return false;
-}
+
 
 int LoginUser::getSessionNum() {
     return sessionNum;

@@ -4,8 +4,9 @@
 #include <iostream>
 #include <vector>
 
-//#include "SignUpUI.h"
+#include "SignUpUI.h"
 #include "LoginUI.h"
+#include "LogoutUI.h"
 //#include "BicycleUI.h"
 //#include "RentalUI.h"
 
@@ -29,10 +30,10 @@ bool handleLogin(const string& id, const string& password) {
     // 로그인 로직...
     return true;
 }
-string handleLogout() {
+bool handleLogout(const string& id) {
     // 로그아웃 로직...
     //return Id (string)
-    return "id";
+    return true;
 }
 vector<pair<int,string>> handleAddBicycle(int bicycleId, const string& bicycleName) {
     // 자전거 등록 로직...
@@ -50,8 +51,6 @@ vector<pair<int,string>> handleShowLendInfo() {
 
 // --- 메인 처리 루프 ---
 int main() {
-
-    bool isLogin = false;
 
     ifstream in("input.txt");
     if (!in.is_open()) {
@@ -85,9 +84,9 @@ int main() {
                 if (action == 1) {
                     // 1.1 회원가입: "1 1 ID PW phone"
                     if (iss >> id >> pw >> phone) {
-                        if(handleSignUp(id, pw, phone)){
-                            out << "2.1. 로그인\n";
-                            out << "> " << id << " " << pw << " " << phone << "\n";
+                        if(SignUpUI::handleSignUp(id, pw, phone)){
+                            out << "1.1. 회원가입\n";
+                            out << "> " << id << " " << pw << " " << phone << "\n\n";
                         }
                     }  
                 }
@@ -96,21 +95,19 @@ int main() {
             case 2:
                 if (action == 1) {
                     // 2.1 로그인: "2 1 ID PW"
-                    if (iss >> id >> pw && isLogin==false) {
-                        if(handleLogin(id, pw)){
+                    if (iss >> id >> pw) {
+                        if(LoginUI::handleLogin(id, pw)){
                             out << "2.1. 로그인\n";
-                            out << "> " << id << " " << pw << "\n";
-                            isLogin = true;
+                            out << "> " << id << " " << pw << "\n\n";
                         }
                     }
                 }
                 else if (action == 2) {
                     // 2.2 로그아웃: "2 2"
-                    if (isLogin){
-                        string result = handleLogout();
+                    string logoutId = LogoutUI::handleLogout();
+                    if(!logoutId.empty()){
                         out << "2.2. 로그아웃\n";
-                        out << ">" << result << "\n";
-                        isLogin = false;
+                        out << "> " << logoutId << "\n\n";
                     }
                 }
                 break;
@@ -123,7 +120,7 @@ int main() {
 
                         if(!result.empty()){
                             out << "3.1. 자전거 등록\n";
-                            out << "> " << result[0].first << " " << result[0].second << "\n";
+                            out << "> " << result[0].first << " " << result[0].second << "\n\n";
                         }
                     }
                 }
@@ -137,7 +134,7 @@ int main() {
                         
                         if(!result.empty()){
                             out << "4.1. 자전거 대여\n";
-                            out << "> " << result[0].first << " " << result[0].second << "\n";
+                            out << "> " << result[0].first << " " << result[0].second << "\n\n";
                         }
                     }
                 }
@@ -150,7 +147,7 @@ int main() {
                     out << "5.1. 자전거 대여 리스트\n";
                     for (auto& [id,name] : list) {
                         out << ">"; 
-                        out << " " << id << " " << name << "\n";
+                        out << " " << id << " " << name << "\n\n";
                     }
                 }
                     //반환 값 없으면 5.1 만 출력?
