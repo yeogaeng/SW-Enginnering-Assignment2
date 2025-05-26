@@ -1,4 +1,4 @@
-// Logout.h
+﻿// Logout.h
 #pragma once
 
 #include <string>
@@ -6,15 +6,25 @@
 
 using std::string;
 
-// <<control>> Logout: 로그아웃 비즈니스 로직 담당
+// 로그아웃 기능을 위한 Logout 클래스 정의
 class Logout {
 private:
-    LoginUser& session;
+    LoginUser& session;     // 현재 로그인 세션 정보를 관리하는 객체 참조
 
 public:
-    // 세션 객체를 생성자 주입
+    /*
+        함수 이름 : Logout::Logout()
+        기능      : Logout 클래스의 생성자로, LoginUser 참조를 초기화함
+        전달 인자 : LoginUser& session - 로그인 세션 정보를 관리하는 객체의 참조
+        반환값    : 없음
+    */
     Logout(LoginUser& session);
 
-    // 로그아웃 시도: 성공하면 이전 로그인 ID 반환, 실패 시 빈 문자열
+    /*
+        함수 이름 : Logout::logout()
+        기능      : 현재 로그인된 사용자를 로그아웃 처리함
+        전달 인자 : 없음
+        반환값    : string -> 로그아웃된 사용자의 ID, 로그아웃 실패 시 빈 문자열
+    */
     string logout();
 };
