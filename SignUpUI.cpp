@@ -8,5 +8,5 @@ SignUpUI::SignUpUI(SignUp& ctrl)
 
 // 파라미터 그대로 컨트롤러에 전달하고 결과 반환
 bool SignUpUI::handleSignUp(string id, string password, string phoneNumber) {
-    return signUpCtrl.handleSignUp(id, password, phoneNumber);
+    return signUpCtrl.signUp(id, password, phoneNumber);
 }

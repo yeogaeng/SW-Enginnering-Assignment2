@@ -17,9 +17,8 @@ MemberRepository::~MemberRepository() {
 // 신규 회원 추가
 Member* MemberRepository::addNewMember(string id, string password,string phoneNumber) {
     // 중복 ID 검사
-    if (findMemberById(id) != nullptr) {
+    if (findMemberById(id) != nullptr)
         return nullptr;
-    }
     // Member 객체 생성 및 저장
     Member* m = new Member(nextMemberNum++, id, password, phoneNumber);
     members.push_back(m);

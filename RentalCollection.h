@@ -8,7 +8,7 @@ using std::vector;
 class RentalCollection {
 private:
     vector<Rental*> ownedRentals;
-    size_t          cursor;
+    size_t cursor;
 
 public:
     RentalCollection();

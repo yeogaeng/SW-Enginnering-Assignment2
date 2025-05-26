@@ -115,7 +115,7 @@ int main() {
                 if (action == 1) {
                     // 3.1 자전거 등록: "3 1 bicycleId bicycleName"
                     if (iss >> bicycleId >> bicycleName) {
-                        if(addBicycleUI.handleAddNewBicycle(bicycleId, bicycleName)){
+                        if(addBicycleUI.handleAddBicycle(bicycleId, bicycleName)){
                             out << "3.1. 자전거 등록\n";
                             out << "> " << bicycleId << " " << bicycleName << "\n\n";
                         }

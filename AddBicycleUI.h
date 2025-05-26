@@ -16,5 +16,5 @@ public:
     AddBicycleUI(AddBicycle& ctrl);
 
     // 화면으로부터 받은 자전거 ID, 이름을 컨트롤에 전달
-    bool handleAddNewBicycle(string bicycleId, string bicycleName);
+    bool handleAddBicycle(string bicycleId, string bicycleName);
 };

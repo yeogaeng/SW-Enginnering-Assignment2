@@ -6,5 +6,5 @@ LogoutUI::LogoutUI(Logout& ctrl)
 {}
 
 string LogoutUI::handleLogout() {
-    return logoutCtrl.handleLogout();
+    return logoutCtrl.logout();
 }

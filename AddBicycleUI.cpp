@@ -5,6 +5,6 @@ AddBicycleUI::AddBicycleUI(AddBicycle& ctrl)
   : addBicycleCtrl(ctrl)
 {}
 
-bool AddBicycleUI::handleAddNewBicycle(string bicycleId, string bicycleName) {
-    return addBicycleCtrl.handleAddNewBicycle(bicycleId, bicycleName);
+bool AddBicycleUI::handleAddBicycle(string bicycleId, string bicycleName) {
+    return addBicycleCtrl.addBicycle(bicycleId, bicycleName);
 }

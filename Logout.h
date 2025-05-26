@@ -16,5 +16,5 @@ public:
     Logout(LoginUser& session);
 
     // 로그아웃 시도: 성공하면 이전 로그인 ID 반환, 실패 시 빈 문자열
-    string handleLogout();
+    string logout();
 };

@@ -7,5 +7,5 @@ LoginUI::LoginUI(Login& ctrl)
 {}
 
 bool LoginUI::handleLogin(string id, string password) {
-    return loginCtrl.handleLogin(id, password);
+    return loginCtrl.login(id, password);
 }

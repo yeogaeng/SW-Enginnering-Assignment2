@@ -13,8 +13,8 @@ private:
 
 public:
     // Repository를 생성자 주입
-    AddBicycle(BicycleRepository& repo);
+    AddBicycle(BicycleRepository& bicycleRepository);
 
     // 신규 자전거 등록: 성공(true)/실패(false)
-    bool handleAddNewBicycle(string bicycleId, string bicycleName);
+    bool addBicycle(string bicycleId, string bicycleName);
 };
