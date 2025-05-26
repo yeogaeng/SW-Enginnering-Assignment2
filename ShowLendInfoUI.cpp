@@ -6,5 +6,5 @@ ShowLendInfoUI::ShowLendInfoUI(ShowLendInfo& ctrl)
 {}
 
 vector<pair<string,string>> ShowLendInfoUI::handleShowLendInfo() {
-    return showCtrl.handleShowLendInfo();
+    return showCtrl.showLendInfo();
 }

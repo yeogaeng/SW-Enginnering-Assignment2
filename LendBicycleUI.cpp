@@ -6,5 +6,5 @@ LendBicycleUI::LendBicycleUI(LendBicycle& ctrl)
 {}
 
 pair<string,string> LendBicycleUI::handleLendBicycle(string bicycleId) {
-    return lendCtrl.handleLendBicycle(bicycleId);
+    return lendCtrl.lendBicycle(bicycleId);
 }

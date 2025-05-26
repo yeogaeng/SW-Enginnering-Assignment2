@@ -23,5 +23,5 @@ public:
     LendBicycle(BicycleRepository& bicycleRepository, MemberRepository& memberRepository, LoginUser& session);
 
     // 자전거 대여: 성공하면 {id,name}, 실패하면 {"",""}
-    pair<string,string> handleLendBicycle(string bicycleId);
+    pair<string,string> lendBicycle(string bicycleId);
 };

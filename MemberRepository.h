@@ -11,7 +11,9 @@ using std::string;
 class MemberRepository {
 private:
     vector<Member*> members;   // 저장된 모든 Member 객체
-    int nextMemberNum;        // 새 회원 번호 발급기
+    int nextMemberNum;  
+     // ID로 회원 조회: 없으면 nullptr
+    Member* findMemberById(string id);      // 새 회원 번호 발급기
 
 public:
     // 생성자: 발급기를 1번부터 시작
@@ -26,6 +28,5 @@ public:
     // ID/PW 검증: 일치하면 Member* 반환, 아니면 nullptr
     Member* authenticate(string id, string password);
 
-    // ID로 회원 조회: 없으면 nullptr
-    Member* findMemberById(string id);
+
 };

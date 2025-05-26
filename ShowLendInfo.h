@@ -22,5 +22,5 @@ public:
 
     // 로그인된 회원의 대여 리스트 반환
     // {bicycleId, bicycleName} 쌍의 벡터
-    vector<pair<string,string>> handleShowLendInfo();
+    vector<pair<string,string>> showLendInfo();
 };

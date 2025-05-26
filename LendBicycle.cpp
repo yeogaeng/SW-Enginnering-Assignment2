@@ -5,7 +5,7 @@
 
 LendBicycle::LendBicycle(BicycleRepository& bp,MemberRepository& mp, LoginUser& sess) : bicycleRepository(bp), memberRepository(mp), session(sess){}
 
-pair<string,string> LendBicycle::handleLendBicycle(string bicycleId) {
+pair<string,string> LendBicycle::lendBicycle(string bicycleId) {
     Member* m = session.whoIsLogin();
     if (!m) return {"",""};
 

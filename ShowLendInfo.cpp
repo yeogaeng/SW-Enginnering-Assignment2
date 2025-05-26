@@ -10,7 +10,7 @@ ShowLendInfo::ShowLendInfo(LoginUser& session)
   : session(session)
 {}
 
-vector<pair<string,string>> ShowLendInfo::handleShowLendInfo() {
+vector<pair<string,string>> ShowLendInfo::showLendInfo() {
     vector<pair<string,string>> result;
 
     // 1) 로그인된 Member* 얻기
@@ -27,8 +27,7 @@ vector<pair<string,string>> ShowLendInfo::handleShowLendInfo() {
     }
 
     // 3) ID 오름차순 정렬
-    std::sort(result.begin(), result.end(),
-              [](auto& a, auto& b){ return a.first < b.first; });
+    std::sort(result.begin(), result.end(), [](auto& a, auto& b){ return a.first < b.first; });
 
     return result;
 }
